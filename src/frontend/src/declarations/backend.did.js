@@ -114,6 +114,16 @@ export const idlService = IDL.Service({
       ['query'],
     ),
   'submitContactForm' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+  'getPendingDonors' : IDL.Func([], [IDL.Vec(Donor)], ['query']),
+  'getPendingRecipientRequests' : IDL.Func([], [IDL.Vec(RecipientRequest)], ['query']),
+  'approveDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'rejectDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'approveRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'rejectRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'deleteDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'deleteRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+  'updateDonor' : IDL.Func([IDL.Principal, DonorInput], [IDL.Bool], []),
+  'updateRecipientRequest' : IDL.Func([IDL.Principal, RecipientRequestInput], [IDL.Bool], []),
 });
 
 export const idlInitArgs = [];
@@ -225,6 +235,16 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'submitContactForm' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+    'getPendingDonors' : IDL.Func([], [IDL.Vec(Donor)], ['query']),
+    'getPendingRecipientRequests' : IDL.Func([], [IDL.Vec(RecipientRequest)], ['query']),
+    'approveDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'rejectDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'approveRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'rejectRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'deleteDonor' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'deleteRecipientRequest' : IDL.Func([IDL.Principal], [IDL.Bool], []),
+    'updateDonor' : IDL.Func([IDL.Principal, DonorInput], [IDL.Bool], []),
+    'updateRecipientRequest' : IDL.Func([IDL.Principal, RecipientRequestInput], [IDL.Bool], []),
   });
 };
 

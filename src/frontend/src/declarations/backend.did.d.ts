@@ -91,6 +91,16 @@ export interface _SERVICE {
     Array<RecipientRequest>
   >,
   'submitContactForm' : ActorMethod<[string, string, string], undefined>,
+  'getPendingDonors' : ActorMethod<[], Array<Donor>>,
+  'getPendingRecipientRequests' : ActorMethod<[], Array<RecipientRequest>>,
+  'approveDonor' : ActorMethod<[Principal], boolean>,
+  'rejectDonor' : ActorMethod<[Principal], boolean>,
+  'approveRecipientRequest' : ActorMethod<[Principal], boolean>,
+  'rejectRecipientRequest' : ActorMethod<[Principal], boolean>,
+  'deleteDonor' : ActorMethod<[Principal], boolean>,
+  'deleteRecipientRequest' : ActorMethod<[Principal], boolean>,
+  'updateDonor' : ActorMethod<[Principal, DonorInput], boolean>,
+  'updateRecipientRequest' : ActorMethod<[Principal, RecipientRequestInput], boolean>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

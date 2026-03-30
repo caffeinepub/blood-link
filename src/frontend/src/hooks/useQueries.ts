@@ -49,6 +49,8 @@ export function useSearchDonors(
       return actor.searchDonorsByBloodGroupAndArea(bloodGroup, area);
     },
     enabled: !!actor && !isFetching && enabled && !!bloodGroup,
+    // Refetch whenever enabled becomes true
+    staleTime: 0,
   });
 }
 
@@ -65,7 +67,13 @@ export function useSearchRecipients(
       return actor.searchRecipientRequestsByBloodGroupAndArea(bloodGroup, area);
     },
     enabled: !!actor && !isFetching && enabled && !!bloodGroup,
+    staleTime: 0,
   });
+}
+
+export function useIsActorReady() {
+  const { actor, isFetching } = useActor();
+  return !!actor && !isFetching;
 }
 
 export function useRegisterDonor() {
@@ -73,7 +81,7 @@ export function useRegisterDonor() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (input: DonorInput) => {
-      if (!actor) throw new Error("Not connected");
+      if (!actor) throw new Error("Backend not ready, please try again.");
       return actor.registerDonor(input);
     },
     onSuccess: () => {
@@ -88,7 +96,7 @@ export function useRegisterRecipient() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (input: RecipientRequestInput) => {
-      if (!actor) throw new Error("Not connected");
+      if (!actor) throw new Error("Backend not ready, please try again.");
       return actor.registerRecipientRequest(input);
     },
     onSuccess: () => {
@@ -106,7 +114,7 @@ export function useSubmitContactForm() {
       email,
       message,
     }: { name: string; email: string; message: string }) => {
-      if (!actor) throw new Error("Not connected");
+      if (!actor) throw new Error("Backend not ready, please try again.");
       return actor.submitContactForm(name, email, message);
     },
   });

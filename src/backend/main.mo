@@ -54,6 +54,7 @@ actor {
   stable var stableContactSubmissions : [ContactSubmission] = [];
   stable var donorCounter : Nat = 200;
   stable var requestCounter : Nat = 200;
+  stable var seeded : Bool = false;
 
   // ── In-memory working maps ───────────────────────────────────────────────────
   let donors = Map.empty<Principal, Donor>();
@@ -150,22 +151,12 @@ actor {
     };
   };
 
-  // ── Boot: restore from stable storage OR seed initial data ──────────────────
-  if (stableDonors.size() > 0) {
-    for (d in stableDonors.values()) { donors.add(d.donorId, d) };
-  } else {
+  // ── Boot: seed only on very first deploy (seeded flag = false) ───────────────
+  if (not seeded) {
     seedDonors();
-  };
-
-  if (stableRecipientRequests.size() > 0) {
-    for (r in stableRecipientRequests.values()) { recipientRequests.add(r.requestId, r) };
-  } else {
     seedRequests();
+    seeded := true;
   };
-
-  for (d in stablePendingDonors.values()) { pendingDonors.add(d.donorId, d) };
-  for (r in stablePendingRecipientRequests.values()) { pendingRecipientRequests.add(r.requestId, r) };
-  for (c in stableContactSubmissions.values()) { contactSubmissions.add(c) };
 
   // ── Upgrade hooks ────────────────────────────────────────────────────────────
   system func preupgrade() {
@@ -177,6 +168,13 @@ actor {
   };
 
   system func postupgrade() {
+    // Restore in-memory maps from stable storage after upgrade
+    for (d in stableDonors.values()) { donors.add(d.donorId, d) };
+    for (r in stableRecipientRequests.values()) { recipientRequests.add(r.requestId, r) };
+    for (d in stablePendingDonors.values()) { pendingDonors.add(d.donorId, d) };
+    for (r in stablePendingRecipientRequests.values()) { pendingRecipientRequests.add(r.requestId, r) };
+    for (c in stableContactSubmissions.values()) { contactSubmissions.add(c) };
+    // Clear stable arrays (data is now in in-memory maps)
     stableDonors := [];
     stableRecipientRequests := [];
     stablePendingDonors := [];

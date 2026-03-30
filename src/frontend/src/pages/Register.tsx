@@ -30,6 +30,7 @@ import { toast } from "sonner";
 import {
   type BloodGroup,
   UrgencyLevel,
+  useIsActorReady,
   useRegisterDonor,
   useRegisterRecipient,
 } from "../hooks/useQueries";
@@ -49,6 +50,7 @@ function DonorForm() {
   const [contactInfo, setContactInfo] = useState("");
   const [success, setSuccess] = useState(false);
   const mutation = useRegisterDonor();
+  const actorReady = useIsActorReady();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -157,12 +159,16 @@ function DonorForm() {
       <Button
         type="submit"
         className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-        disabled={mutation.isPending}
+        disabled={mutation.isPending || !actorReady}
         data-ocid="register.submit_button"
       >
         {mutation.isPending ? (
           <>
             <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Registering…
+          </>
+        ) : !actorReady ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Connecting…
           </>
         ) : (
           "Register as Donor"
@@ -184,6 +190,7 @@ function RecipientForm() {
   );
   const [success, setSuccess] = useState(false);
   const mutation = useRegisterRecipient();
+  const actorReady = useIsActorReady();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -311,12 +318,16 @@ function RecipientForm() {
       <Button
         type="submit"
         className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
-        disabled={mutation.isPending}
+        disabled={mutation.isPending || !actorReady}
         data-ocid="register.submit_button"
       >
         {mutation.isPending ? (
           <>
             <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Submitting…
+          </>
+        ) : !actorReady ? (
+          <>
+            <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Connecting…
           </>
         ) : (
           "Submit Blood Request"

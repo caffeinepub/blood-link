@@ -425,72 +425,72 @@ export class Backend implements backendInterface {
     async getPendingDonors(): Promise<Array<Donor>> {
         if (this.processError) {
             try {
-                const result = await (this.actor as any).getPendingDonors();
+                const result = await this.actor.getPendingDonors();
                 return from_candid_vec_n3(this._uploadFile, this._downloadFile, result);
             } catch (e) { this.processError(e); throw new Error("unreachable"); }
         } else {
-            const result = await (this.actor as any).getPendingDonors();
+            const result = await this.actor.getPendingDonors();
             return from_candid_vec_n3(this._uploadFile, this._downloadFile, result);
         }
     }
     async getPendingRecipientRequests(): Promise<Array<RecipientRequest>> {
         if (this.processError) {
             try {
-                const result = await (this.actor as any).getPendingRecipientRequests();
+                const result = await this.actor.getPendingRecipientRequests();
                 return from_candid_vec_n8(this._uploadFile, this._downloadFile, result);
             } catch (e) { this.processError(e); throw new Error("unreachable"); }
         } else {
-            const result = await (this.actor as any).getPendingRecipientRequests();
+            const result = await this.actor.getPendingRecipientRequests();
             return from_candid_vec_n8(this._uploadFile, this._downloadFile, result);
         }
     }
     async approveDonor(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).approveDonor(arg0); }
+            try { return await this.actor.approveDonor(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).approveDonor(arg0); }
+        } else { return await this.actor.approveDonor(arg0); }
     }
     async rejectDonor(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).rejectDonor(arg0); }
+            try { return await this.actor.rejectDonor(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).rejectDonor(arg0); }
+        } else { return await this.actor.rejectDonor(arg0); }
     }
     async approveRecipientRequest(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).approveRecipientRequest(arg0); }
+            try { return await this.actor.approveRecipientRequest(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).approveRecipientRequest(arg0); }
+        } else { return await this.actor.approveRecipientRequest(arg0); }
     }
     async rejectRecipientRequest(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).rejectRecipientRequest(arg0); }
+            try { return await this.actor.rejectRecipientRequest(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).rejectRecipientRequest(arg0); }
+        } else { return await this.actor.rejectRecipientRequest(arg0); }
     }
     async deleteDonor(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).deleteDonor(arg0); }
+            try { return await this.actor.deleteDonor(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).deleteDonor(arg0); }
+        } else { return await this.actor.deleteDonor(arg0); }
     }
     async deleteRecipientRequest(arg0: Principal): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).deleteRecipientRequest(arg0); }
+            try { return await this.actor.deleteRecipientRequest(arg0); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).deleteRecipientRequest(arg0); }
+        } else { return await this.actor.deleteRecipientRequest(arg0); }
     }
     async updateDonor(arg0: Principal, arg1: DonorInput): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).updateDonor(arg0, to_candid_DonorInput_n18(this._uploadFile, this._downloadFile, arg1)); }
+            try { return await this.actor.updateDonor(arg0, to_candid_DonorInput_n18(this._uploadFile, this._downloadFile, arg1)); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).updateDonor(arg0, to_candid_DonorInput_n18(this._uploadFile, this._downloadFile, arg1)); }
+        } else { return await this.actor.updateDonor(arg0, to_candid_DonorInput_n18(this._uploadFile, this._downloadFile, arg1)); }
     }
     async updateRecipientRequest(arg0: Principal, arg1: RecipientRequestInput): Promise<boolean> {
         if (this.processError) {
-            try { return await (this.actor as any).updateRecipientRequest(arg0, to_candid_RecipientRequestInput_n22(this._uploadFile, this._downloadFile, arg1)); }
+            try { return await this.actor.updateRecipientRequest(arg0, to_candid_RecipientRequestInput_n22(this._uploadFile, this._downloadFile, arg1)); }
             catch (e) { this.processError(e); throw new Error("unreachable"); }
-        } else { return await (this.actor as any).updateRecipientRequest(arg0, to_candid_RecipientRequestInput_n22(this._uploadFile, this._downloadFile, arg1)); }
+        } else { return await this.actor.updateRecipientRequest(arg0, to_candid_RecipientRequestInput_n22(this._uploadFile, this._downloadFile, arg1)); }
     }
 }
 function from_candid_BloodGroup_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _BloodGroup): BloodGroup {

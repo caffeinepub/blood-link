@@ -1,13 +1,9 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { Droplets, Menu, X } from "lucide-react";
 import { useState } from "react";
-import { useInternetIdentity } from "../hooks/useInternetIdentity";
 
 export default function Navbar() {
-  const { login, clear, loginStatus, identity } = useInternetIdentity();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isLoggedIn = loginStatus === "success" && !!identity;
 
   const navLinks = [
     { to: "/", label: "Home" },
@@ -45,35 +41,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Auth */}
-        <div className="hidden md:flex items-center gap-3">
-          {isLoggedIn ? (
-            <>
-              <span className="text-xs text-muted-foreground truncate max-w-[120px]">
-                {identity.getPrincipal().toString().slice(0, 10)}…
-              </span>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={clear}
-                data-ocid="nav.button"
-              >
-                Sign Out
-              </Button>
-            </>
-          ) : (
-            <Button
-              size="sm"
-              onClick={login}
-              disabled={loginStatus === "logging-in"}
-              className="bg-primary text-primary-foreground hover:bg-primary/90"
-              data-ocid="nav.button"
-            >
-              {loginStatus === "logging-in" ? "Signing in…" : "Sign In"}
-            </Button>
-          )}
-        </div>
-
         {/* Mobile toggle */}
         <button
           type="button"
@@ -104,28 +71,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <div className="pt-2 border-t border-border">
-            {isLoggedIn ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={clear}
-                className="w-full"
-                data-ocid="nav.button"
-              >
-                Sign Out
-              </Button>
-            ) : (
-              <Button
-                size="sm"
-                onClick={login}
-                className="w-full bg-primary text-primary-foreground"
-                data-ocid="nav.button"
-              >
-                Sign In
-              </Button>
-            )}
-          </div>
         </div>
       )}
     </header>
